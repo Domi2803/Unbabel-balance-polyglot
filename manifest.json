@@ -1,0 +1,19 @@
+{
+    "name": "Unbabel Polyglot Balance",
+    "description": "Shows your balance on Unbabel's new polyglot web interface",
+    "version": "1.0",
+    "manifest_version": 2,
+    "web_accessible_resources": ["/inject.html"],
+    "content_scripts": [{
+        "js": ["balanceInjector.js"],
+        "matches": ["https://unbabel.com/editor/polyglot/*"]
+    }],
+    "permissions": [
+        "*://*.unbabel.com/*"
+    ],
+    "icons":{
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    }
+}
