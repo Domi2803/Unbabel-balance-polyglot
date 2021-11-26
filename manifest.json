@@ -5,7 +5,7 @@
     "manifest_version": 2,
     "web_accessible_resources": ["/inject.html"],
     "content_scripts": [{
-        "js": ["balanceInjector.js"],
+        "js": ["apiSettings.js", "balanceInjector.js"],
         "matches": ["https://unbabel.com/editor/polyglot/*"]
     }],
     "permissions": [

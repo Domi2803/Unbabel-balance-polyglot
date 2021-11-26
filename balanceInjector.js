@@ -1,6 +1,10 @@
+var exchangeRate = null;
+
+
 
 if (document.getElementById("balanceInject") == null) {
     inject();
+    fetchExchangeRate();
 }
 setInterval(() => {
     update();
@@ -28,7 +32,25 @@ function update() {
         var domParser = new DOMParser();
         var dom = domParser.parseFromString(body, "text/html");
         var balance = dom.getElementsByClassName('money')[0].innerText;
-        balanceInject.innerText = balance;
+        var balanceNmbr = Number.parseFloat(balance.split("$")[1]);
+        var balanceText = "$" + balanceNmbr.toFixed(2);
+        
+        if(exchangeRate != null){
+            balanceText = "" + (balanceNmbr * exchangeRate).toFixed(2) + "€";
+        }
+        
+        balanceInject.innerText = balanceText;
+
     })
 
+}
+
+function fetchExchangeRate(){
+    fetch("https://currency-converter5.p.rapidapi.com/currency/convert?format=json&from=USD&to=EUR&amount=1", {
+        "method": "GET",
+        "headers": apiHeaders
+    })
+    .then(res => res.json()).then(json=>{
+        exchangeRate = Number.parseFloat(json.rates.EUR.rate) * 0.965;
+    });
 }
